@@ -1,55 +1,53 @@
 package mastermind;
 import java.util.*;
 import java.lang.Math;
-import java.util.Scanner;
 
 public class gamereal {
-    private static Random random = new Random();
-    private static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
-        int rng;
-        int tenTurns;
-        tenTurns = 0;
+    	Random random = new Random();
+    	Scanner input = new Scanner(System.in);
         int black;
         black = 0;
-        int i;
-        i = 0;
-        int y;
-        y = 0;
-        String[] secret = new String[4];
-        String[] colors = new String[6];
-
-        colors[0] = "Red";
-        colors[1] = "Blue";
-        colors[2] = "Green";
-        colors[3] = "Purple";
-        colors[4] = "Orange";
-        colors[5] = "Yellow";
         boolean won = false;
-
+        String[] secret = new String[4];
+        String colors[] = {"Red", "Blue", "Green", "Purple", "Orange", "Yellow"};
         
-        for (i = 0; i <= 3; i++) {
-            rng = random.nextInt(6);
+        System.out.println("Welcome to Mastermind");
+        System.out.println("You can choose between the colors: red, blue, green, purple, orange and yellow");
+        System.out.println("Black = Correct color on correct position");
+        System.out.println("Gray = Incorrect color on incorrect position");
+        System.out.println("White = Correct color on incorrect position");
+        System.out.println("");
+        System.out.println("Do you want the code to show? Y/N (only answer in 'y' or 'n')");
+        
+        String answerInput = input.next();
+    	String answerYes = ("Y");
+
+        for (int i = 0; i < 4; i++) {
+            int rng = random.nextInt(6);
             secret[i] = colors[rng];
+            if (answerInput.equalsIgnoreCase(answerYes))
             System.out.println(secret[i]);
+            else 
+            System.out.println("No code shown");
+            
         }
-        for (tenTurns = 0; tenTurns <= 9; tenTurns++) {
-            System.out.println("Choose 4 colors, 1 at a time:");
+        for (int tenTurns = 0; tenTurns < 10; tenTurns++) {
+        	System.out.println("Choose 4 colors, 1 at a time:");
             String[] guess = new String[4];
 
-            for (i = 0; i <= 3; i++) {
+            for (int i = 0; i < 4; i++) {
                 guess[i] = input.next();
             }
-            for (i = 0; i <= 3; i++) {
+            for (int i = 0; i < 4; i++) {
                 String feedback;
-
-                feedback = "Colour not found.";
+                feedback = "Gray";
                 if (guess[i].equalsIgnoreCase(secret[i])) {
                     feedback = "Black";
                     black = black + 1;
                 } else {
-                    for (y = 0; y <= 3; y++) {
+                	for (int y = 0; y < 4; y++) {
                         if (secret[i].equalsIgnoreCase(guess[y]) && y != i) {
                             feedback = "White";
                         }
@@ -65,11 +63,10 @@ public class gamereal {
         }
         if (won == true) {
             System.out.println("You have won! Restart for next round.");
+            input.close();
         } else {
             System.out.println("You have lost! Restart for next round.");
+            input.close();
         }
-    }
-    
-    {
     }
 }
